@@ -4,14 +4,13 @@ library(caret)
 
 data<-read.csv("/home/onu/Desktop/ML/clustering/Data/data.csv")
 #making dummy
-data$Age<-as.numeric(as.factor(data$age))
-data$Income<-as.numeric(as.factor(data$income))
-data$Student<-as.numeric(as.factor(data$student))
-data$CreditRating<-as.numeric(as.factor(data$credit_rating))
+data$age<-as.numeric(as.factor(data$age))
+data$income<-as.numeric(as.factor(data$income))
+data$student<-as.numeric(as.factor(data$student))
+data$credit_rating<-as.numeric(as.factor(data$credit_rating))
 #detaching training and test data
 train<-data[1:10,1:5]
 test<-data[11:14,1:5]
-
 x<-subset(train, select = -buys_computer)
 y <- train[,"buys_computer"]
 #making dataframe
