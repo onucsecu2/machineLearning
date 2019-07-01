@@ -1,33 +1,29 @@
-
+import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
-
+from sklearn.model_selection import KFold
 bankdata = pd.read_csv("/home/onu/Desktop/ML/clustering/Data/data.csv")
 X = bankdata.drop('buys_computer', axis=1)
 y = bankdata['buys_computer']
 
-
-
-from sklearn import preprocessing, metrics
 #X['age']= pd.get_dummies(X['age'])
-le = preprocessing.LabelEncoder()
+le = LabelEncoder()
 X['age']=le.fit_transform(X['age'])
 X['income']=le.fit_transform(X['income'])
 X['student']=le.fit_transform(X['student'])
 X['credit_rating']=le.fit_transform(X['credit_rating'])
 
-
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.30)
-
 from sklearn.neural_network import MLPClassifier
-clf = MLPClassifier()
-clf.fit(X_train, y_train)
-y_pred = clf.predict(X_test)
+clf = MLPClassifier(activation= 'logistic',early_stopping =True,max_iter=1000,learning_rate_init =0.1)
 
-from sklearn.metrics import classification_report, confusion_matrix
-print(confusion_matrix(y_test,y_pred))
-print(classification_report(y_test,y_pred))
-print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
-
-
+scores = []
+cv = KFold(n_splits=5, random_state=None, shuffle=False)
+for train_index, test_index in cv.split(X):
+    print("Train Index: ", train_index)
+    print("Test Index: ", test_index, "\n")
+    X_train, X_test, y_train, y_test = X.iloc[train_index,:], X.iloc[test_index,:], y.iloc[train_index], y.iloc[test_index]
+    clf.fit(X_train, y_train)
+    scores.append(clf.score(X_test, y_test))
+sum=0 
+print("accuracy : ")   
+print(np.mean(scores))

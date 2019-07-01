@@ -19,7 +19,7 @@ X['credit_rating']=le.fit_transform(X['credit_rating'])
 Z=X.drop(X.index[:-1]).reset_index(drop=True)
 X=X[:-1]
 
-from sklearn.neural_network import
+from sklearn.neural_network import MLPClassifier
 
 clf = MLPClassifier()
 clf.fit(X, y)

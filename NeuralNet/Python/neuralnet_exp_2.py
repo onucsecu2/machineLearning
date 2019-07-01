@@ -22,9 +22,11 @@ X_test=X.drop(X.index[:-4]).reset_index(drop=True)
 y_test=y.drop(y.index[:-4]).reset_index(drop=True)
 X_train=X[:-4]
 y_train=y[:-4]
+from keras.models import Sequential
+from keras.layers import Dense
 from sklearn.neural_network import MLPClassifier
 
-clf = MLPClassifier()
+clf = MLPClassifier(activation= 'logistic',early_stopping =True,max_iter=1000,learning_rate_init =0.01)
 clf.fit(X_train, y_train)
 
 y_pred = clf.predict(X_test)
@@ -32,6 +34,14 @@ from sklearn.metrics import classification_report, confusion_matrix
 print(confusion_matrix(y_test,y_pred))
 print(classification_report(y_test,y_pred))
 print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+
+classifier = Sequential() # Initialising the ANN
+
+classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+classifier.fit(X_train, y_train, batch_size = 1, epochs = 100)
+scores = classifier.evaluate(X_train, y_train)
+print("\n%s: %.2f%%" % (classifier.metrics_names[1], scores[1]*100))
 
 
 
