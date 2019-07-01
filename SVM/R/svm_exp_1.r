@@ -1,12 +1,18 @@
 library(RWeka)
 library(e1071)
 library(caret)
+
 #read dataset & testdata 
 train<-read.csv("/home/onu/Desktop/ML/clustering/Data/data.csv")
 test<-read.csv("/home/onu/Desktop/ML/clustering/Data/testdata.csv")
 #detach the class column put it in different array
+
+
 x<-subset(train, select = -buys_computer)
 y <- train[,"buys_computer"]
+
+#svm <- SVM(x, y, core="libsvm", kernel="linear", C=1)
+
 #bind the train data and test data into a table so that it will help to make dummy variable for these strings
 data<-rbind(x,test)
 #making dummy
@@ -28,4 +34,5 @@ model <-svm(buys_computer~., data=dat)
 pred <-predict(model, test)
 #print predict
 pred
+
 

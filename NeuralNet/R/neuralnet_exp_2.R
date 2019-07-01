@@ -11,3 +11,4 @@ prediction
 cfMatrix<-confusionMatrix(data=prediction,test$buys_computer)
 cfMatrix
 
+
