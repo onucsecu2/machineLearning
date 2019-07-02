@@ -34,7 +34,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 print(confusion_matrix(y_test,y_pred))
 print(classification_report(y_test,y_pred))
 print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
-
+'''
 classifier = Sequential() # Initialising the ANN
 
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
@@ -42,6 +42,6 @@ classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = [
 classifier.fit(X_train, y_train, batch_size = 1, epochs = 100)
 scores = classifier.evaluate(X_train, y_train)
 print("\n%s: %.2f%%" % (classifier.metrics_names[1], scores[1]*100))
-
+'''
 
 
